@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.ui.theme" value="simple"/>
+
+    <package name="basePackage" extends="struts-default" abstract="true">
+        <interceptors>
+            <!--定义我们自己的拦截器-->
+            <interceptor name="loginInterceptor" class="erp.interceptor.LoginInterceptor"/>
+            <!--定义拦截器栈-->
+            <interceptor-stack name="erpInterceptor">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="loginInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        <!--定义全局默认拦截器-->
+        <default-interceptor-ref name="erpInterceptor"/>
+    </package>
+
+
+
+    <package name="erp" extends="basePackage">
+        <!--定义默认action-->
+        <default-action-ref name="erp_*"></default-action-ref>
+        <!--全局视图配置-->
+        <global-results>
+            <result name="login">/WEB-INF/jsps/emp/toLogin.jsp</result>
+        </global-results>
+
+        <!--让main.jsp可以和context.jsp联系起来
+        做单独的页面跳转，不需要class,主要用于main页面和context页面做跳转
+        -->
+        <action name="erp_*">
+            <result>/WEB-INF/jsps/{1}.jsp</result>
+        </action>
+
+
+        <!--emp的action-->
+        <action name="emp_*" class="empAction" method="emp_{1}">
+            <!--排除不需要拦截的方法-->
+            <interceptor-ref name="erpInterceptor">
+                <param name="loginInterceptor.excludeMethods">emp_toLogin,emp_login</param>
+            </interceptor-ref>
+            <result name="success">/WEB-INF/jsps/emp/{1}.jsp</result>
+            <!--重定向到list页面 这儿要进行重定向到emp_list进行重新查询相当于进行更新
+            如果直接到list页面它不会进行更新-->
+            <result name="list" type="redirectAction">emp_list.action</result>
+            <!--重定向到main页面-->
+            <result name="main" type="redirectAction">erp_main.action</result>
+        </action>
+        <!--处理添加的ajaxAction-->
+        <action name="ajax_emp_*" class="empAction" method="ajax_emp_{1}">
+            <!--排除不需要拦截的方法-->
+            <interceptor-ref name="erpInterceptor">
+                <param name="loginInterceptor.excludeMethods">ajax_emp_getImage</param>
+            </interceptor-ref>
+        </action>
+
+
+
+        <!--dep的action-->
+        <action name="dep_*" class="depAction" method="dep_{1}">
+            <result name="success">/WEB-INF/jsps/dep/{1}.jsp</result>
+            <result name="list" type="redirectAction">dep_list.action</result>
+        </action>
+        <action name="ajax_dep_*" class="depAction" method="ajax_dep_{1}"></action>
+
+        <!--role的action-->
+        <action name="role_*" class="roleAction" method="role_{1}">
+            <result name="success">/WEB-INF/jsps/role/{1}.jsp</result>
+            <result name="list" type="redirectAction">role_list.action</result>
+        </action>
+        <action name="ajax_role_*" class="roleAction" method="ajax_role_{1}"></action>
+
+        <!--productType的action-->
+        <action name="productType_*" class="productTypeAction" method="productType_{1}">
+            <result name="success">/WEB-INF/jsps/productType/{1}.jsp</result>
+            <result name="list" type="redirectAction">productType_list.action</result>
+        </action>
+        <action name="ajax_productType_*" class="productTypeAction" method="ajax_productType_{1}"></action>
+
+        <!--product的action-->
+        <action name="product_*" class="productAction" method="product_{1}">
+            <result name="success">/WEB-INF/jsps/product/{1}.jsp</result>
+            <result name="list" type="redirectAction">product_list.action</result>
+        </action>
+        <action name="ajax_product_*" class="productAction" method="ajax_product_{1}"></action>
+
+        <!--supplier的action-->
+        <action name="supplier_*" class="supplierAction" method="supplier_{1}">
+            <result name="success">/WEB-INF/jsps/supplier/{1}.jsp</result>
+            <result name="list" type="redirectAction">supplier_list.action</result>
+        </action>
+        <action name="ajax_supplier_*" class="supplierAction" method="ajax_supplier_{1}"></action>
+
+        <!--oderModel的action-->
+        <action name="orderModel_*" class="orderModelAction" method="orderModel_{1}">
+            <result name="success">/WEB-INF/jsps/order/buy/{1}.jsp</result>
+        </action>
+        <action name="ajax_orderModel_*" class="orderModelAction" method="ajax_orderModel_{1}"></action>
+
+        <!--oderDetail的action-->
+        <action name="orderDetail_*" class="orderDetailAction" method="orderDetail_{1}">
+            <result name="success">/WEB-INF/jsps/order/buy/{1}.jsp</result>
+        </action>
+        <action name="ajax_orderDetail_*" class="orderDetailAction" method="ajax_orderDetail_{1}"></action>
+
+        <!--配置consoleLog的Action-->
+        <action name="consoleLog_*" class="consoleLogAction" method="consoleLog_{1}">
+            <result name="success">/WEB-INF/jsps/log/{1}.jsp</result>
+        </action>
+        <action name="ajax_consoleLog_*" class="consoleLogAction" method="ajax_consoleLog_{1}"></action>
+
+        <!--配置transOrder的action-->
+        <action name="transOrder_*" class="transOrderAction" method="transOrder_{1}">
+            <result name="success">/WEB-INF/jsps/transport/{1}.jsp</result>
+            <result name="store_success">/WEB-INF/jsps/store/{1}.jsp</result>
+            <result name="store_inDetail">/WEB-INF/jsps/store/{1}.jsp</result>
+        </action>
+        <action name="ajax_transOrder_*" class="transOrderAction" method="ajax_transOrder_{1}"></action>
+
+        <!--配置store的action-->
+        <action name="store_*" class="storeAction" method="store_{1}">
+            <result name="success">/WEB-INF/jsps/store/{1}.jsp</result>
+        </action>
+        <action name="ajax_store_*" class="storeAction" method="ajax_store_{1}"></action>
+
+    </package>
+</struts>

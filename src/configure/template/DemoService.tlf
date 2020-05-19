@@ -1,0 +1,8 @@
+package erp.service;
+
+import erp.model.Demo;
+import erp.query.DemoQuery;
+
+public interface DemoService extends BaseService<Demo,DemoQuery>{
+
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+
+    <!--
+    	防止hibernate的session关闭问题，主要是应用于延迟加载，spring在管理session，
+    	把事务切分在Service层，当前Service方法开始调用的时候spring会开启一个session，
+    	Service执行完毕就会关闭session，如果关闭了session，就不会有延迟加载
+    	openSessionInViewerFilter让session不被关闭
+    	openSessionInViewerFilter一定要在struts过滤器上面
+     -->
+    <filter>
+        <filter-name>openSessionInViewerFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>openSessionInViewerFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
+
+    <!--
+  		服务器启动时该过滤器会被实例化这是struts2的核心中央转发器
+  	 -->
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <!--Spring容器的监听器
+    spring的容器一定是服务器已启动就创建,spring提供一个监听器，专门做ioc容器初始化的
+    -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- 指定spring文件的位置，给上面的 listener-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:ApplicationContext.xml</param-value>
+    </context-param>
+
+    <welcome-file-list>
+        <welcome-file></welcome-file>
+    </welcome-file-list>
+</web-app>

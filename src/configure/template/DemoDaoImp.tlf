@@ -1,0 +1,34 @@
+/**
+ * @ClassName DemoDaoImp
+ * @Authror zhouzhiqiang
+ * @Date 2020/3/20 20:27
+ * @description
+ * @version 1.0
+ */
+package erp.dao.daoImp;
+
+import erp.dao.DemoDao;
+import erp.model.Demo;
+import erp.query.DemoQuery;
+import org.apache.commons.lang3.StringUtils;
+
+public class DemoDaoImp extends BaseDaoImp<Demo, DemoQuery> implements DemoDao {
+    @Override
+    public String getHql(DemoQuery demoQuery) {
+        String hql = "from Demo where 1=1 ";
+        //第一步给hql语句进行动态的拼接
+        if (StringUtils.isNotBlank(demoQuery)) {
+            hql = hql + "and ";
+        }
+        if (StringUtils.isNotBlank(demoQuery)) {
+            hql = hql + "and ";
+        }
+        if (StringUtils.isNotBlank(demoQuery)) {
+            hql = hql + "and ";
+        }
+        if (StringUtils.isNotBlank(demoQuery)) {
+            hql = hql + "and ";
+        }
+        return hql;
+    }
+}

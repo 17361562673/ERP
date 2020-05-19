@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!--配置empAction-->
+	<bean id="empAction" class="erp.controller.EmpAction" scope="prototype">
+		<property name="empService" ref="empService"/>
+		<property name="depService" ref="depService"/>
+	</bean>
+	<!--配置depAction-->
+	<bean id="depAction" class="erp.controller.DepAction" scope="prototype">
+		<property name="depService" ref="depService"/>
+	</bean>
+	<!--配置roleAction-->
+	<bean id="roleAction" class="erp.controller.RoleAction" scope="prototype">
+		<property name="roleService" ref="roleService"/>
+		<property name="menuService" ref="menuService"/>
+	</bean>
+	<!--配置productTypeAction-->
+	<bean id="productTypeAction" class="erp.controller.ProductTypeAction" scope="prototype">
+		<property name="productTypeService" ref="productTypeService"/>
+		<property name="supplierService" ref="supplierService"/>
+	</bean>
+	<!--配置productAction-->
+	<bean id="productAction" class="erp.controller.ProductAction" scope="prototype">
+		<property name="productService" ref="productService"/>
+		<property name="supplierService" ref="supplierService"/>
+	</bean>
+	<!--配置supplierAction-->
+	<bean id="supplierAction" class="erp.controller.SupplierAction" scope="prototype">
+		<property name="supplierService" ref="supplierService"/>
+	</bean>
+	<!--配置orderModelAction-->
+	<bean id="orderModelAction" class="erp.controller.OrderModelAction" scope="prototype">
+		<property name="orderModelService" ref="orderModelService"/>
+		<property name="supplierService" ref="supplierService"/>
+		<property name="productService" ref="productService"/>
+	</bean>
+	<!--配置orderDetailAction-->
+	<bean id="orderDetailAction" class="erp.controller.OrderDetailAction" scope="prototype">
+		<property name="orderDetailService" ref="orderDetailService"/>
+	</bean>
+	<!--配置consoleLogAction-->
+	<bean id="consoleLogAction" class="erp.controller.ConsoleLogAction" scope="prototype">
+		<property name="consoleLogService" ref="consoleLogService"/>
+	</bean>
+	<!--配置transOrderAction-->
+	<bean id="transOrderAction" class="erp.controller.TransOrderAction" scope="prototype">
+		<property name="orderModelService" ref="orderModelService"/>
+		<property name="productService" ref="productService"/>
+		<property name="supplierService" ref="supplierService"/>
+		<property name="depService" ref="depService"/>
+	</bean>
+	<!--配置storeAction-->
+	<bean id="storeAction" class="erp.controller.StoreAction" scope="prototype">
+		<property name="storeService" ref="storeService"/>
+		<property name="orderModelService" ref="orderModelService"/>
+	</bean>
+</beans>

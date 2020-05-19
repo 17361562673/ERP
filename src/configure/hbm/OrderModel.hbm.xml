@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="erp.model.OrderModel" table="order_model" schema="erp_project">
+        <id name="orderId" column="order_id">
+            <generator class="native"/>
+        </id>
+        <property name="orderNum" column="order_num"/>
+        <!--<property name="creater" column="creater"/>-->
+        <property name="createTime" column="create_time"/>
+       <!-- <property name="checker" column="checker"/>-->
+        <property name="checkTime" column="check_time"/>
+
+        <!--<property name="completer" column="completer"/>-->
+
+        <property name="endTime" column="end_time"/>
+        <property name="orderType" column="order_type"/>
+        <property name="orderState" column="order_state"/>
+        <property name="totalNum" column="total_num"/>
+        <property name="totalPrice" column="total_price"/>
+       <!-- <property name="supplierId" column="supplier_id"/>-->
+        <!--设置和订单创建人多对一的关系-->
+        <many-to-one name="ordercreater" column="creater"/>
+        <!--设置与供应商多对一的关系-->
+        <many-to-one name="supplier" column="supplier_id"/>
+        <!--设置和订单明细一对多的关系-->
+        <set name="orderDetails" cascade="save-update">
+            <key column="order_id"></key>
+            <one-to-many class="erp.model.OrderDetail"></one-to-many>
+        </set>
+        <!--设置和orderChecker多对一的关系-->
+        <many-to-one name="orderChecker" column="checker"/>
+        <!--设置和orderCompleter多对一的关系-->
+        <many-to-one name="orderCompleter" column="completer"/>
+    </class>
+</hibernate-mapping>

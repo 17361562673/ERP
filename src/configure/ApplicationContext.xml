@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:contex="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+	<!--配置数据源-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<!--配置四个基本属性-->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/erp_project?characterEncoding=UTF-8"/>
+		<property name="username" value="root"/>
+		<property name="password" value="root"/>
+		<!--初始化连接数-->
+		<property name="initialSize" value="1"/>
+		<!--连接池的最大连接数-->
+		<property name="maxActive" value="8"/>
+		<!--连接池最大空闲连接数(最多闲着的(澡堂子洗澡师傅不能都闲着不然谁干活))-->
+		<property name="maxIdle" value="5"/>
+		<!--最小的空闲连接数(不能都忙不然顾客来了没人干活))-->
+		<property name="minIdle" value="3"/>
+		<!--最大等待时间-->
+		<property name="maxWait" value="-1"/>
+	</bean>
+
+	<!--配置sessionFactory-->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+	</bean>
+
+	<!--配置事务管理器-->
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+
+	<!--定义通知-->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="submit*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="modify*" propagation="REQUIRED"/>
+			<tx:method name="remove*" propagation="REQUIRED"/>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!--定义切面-->
+	<aop:config>
+		<!--切点配置-->
+		<aop:pointcut id="myCut" expression="execution(* erp.service..*.*(..))"/>
+		<!--引入通知和切点-->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="myCut"/>
+	</aop:config>
+	<!--引入其他ApplicationContext配置文件-->
+	<import resource="classpath:ApplicationContext-dao.xml"/>
+	<import resource="classpath:ApplicationContext-service.xml"/>
+	<import resource="classpath:ApplicationContext-action.xml"/>
+</beans>

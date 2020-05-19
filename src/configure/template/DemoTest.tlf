@@ -1,0 +1,46 @@
+/**
+ * @ClassName DemoServiceImpTest
+ * @Authror zhouzhiqiang
+ * @Date 2020/3/21 0:44
+ * @description
+ * @version 1.0
+ */
+package erp.service.serviceImpTest;
+
+import org.junit.Test;
+import erp.service.DemoService;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:ApplicationContext.xml")
+public class DemoServiceImpTest {
+    @Autowired
+    private DemoService demoService;
+    @Test
+    public void testSaveDemo() {
+
+    }
+    @Test
+    public void testDeleteDemo() {
+
+    }
+    @Test
+    public void testUpdateDemo() {
+
+    }
+    @Test
+    public void testGetDemo() {
+
+    }
+    @Test
+    public void testQueryDemoByCondition() {
+
+    }
+    @Test
+    public void testList() {
+
+    }
+}

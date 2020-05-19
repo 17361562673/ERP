@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:contex="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!--配置empService-->
+	<bean id="empService" class="erp.service.serviceImp.EmpServiceImp">
+		<property name="empDao" ref="empDao"/>
+		<property name="roleDao" ref="roleDao"/>
+	</bean>
+    <!--配置depService-->
+	<bean id="depService" class="erp.service.serviceImp.DepServiceImp">
+		<property name="depDao" ref="depDao"/>
+	</bean>
+	<!--配置roleService-->
+	<bean id="roleService" class="erp.service.serviceImp.RoleServiceImp">
+		<property name="roleDao" ref="roleDao"/>
+		<property name="menuDao" ref="menuDao"/>
+	</bean>
+	<!--配置ProductTypeService-->
+	<bean id="productTypeService" class="erp.service.serviceImp.ProductTypeServiceImp">
+		<property name="productTypeDao" ref="productTypeDao"/>
+	</bean>
+	<!--配置supplierService-->
+	<bean id="supplierService" class="erp.service.serviceImp.SupplierServiceImp">
+		<property name="supplierDao" ref="supplierDao"/>
+	</bean>
+	<!--配置productService-->
+	<bean id="productService" class="erp.service.serviceImp.ProductServiceImp">
+		<property name="productDao" ref="productDao"/>
+	</bean>
+	<!--配置orderModelService-->
+	<bean id="orderModelService" class="erp.service.serviceImp.OrderModelServiceImp">
+		<property name="orderModelDao" ref="orderModelDao"/>
+		<property name="consoleLogDao" ref="consoleLogDao"/>
+		<property name="orderDetailDao" ref="orderDetailDao"/>
+	</bean>
+	<!--配置orderDetailService-->
+	<bean id="orderDetailService" class="erp.service.serviceImp.OrderDetailServiceImp">
+		<property name="orderDetailDao" ref="orderDetailDao"/>
+	</bean>
+	<!--配置consoleLogService-->
+	<bean id="consoleLogService" class="erp.service.serviceImp.ConsoleLogServiceImp">
+		<property name="consoleLogDao" ref="consoleLogDao"/>
+	</bean>
+	<!--配置storeService-->
+	<bean id="storeService" class="erp.service.serviceImp.StoreServiceImp">
+		<property name="storeDao" ref="storeDao"/>
+		<property name="productDao" ref="productDao"/>
+		<property name="orderDetailDao" ref="orderDetailDao"/>
+		<property name="orderModelDao" ref="orderModelDao"/>
+	</bean>
+	<!--配置menuService-->
+	<bean id="menuService" class="erp.service.serviceImp.MenuServiceImp">
+		<property name="menuDao" ref="menuDao"/>
+	</bean>
+</beans>

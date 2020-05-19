@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="erp.model.ProductType" table="product_type" schema="erp_project">
+        <id name="productTypeId" column="product_type_id">
+            <generator class="native"/>
+        </id>
+        <!--<property name="supplierId" column="supplier_id"/>-->
+        <property name="name" column="name"/>
+        <!--设置和供应商多对一的关系-->
+        <many-to-one name="supplier" column="supplier_id"/>
+        <!--设置和商品一对多的关系-->
+        <set name="products">
+            <key column="product_type_id"></key>
+            <one-to-many class="erp.model.Product"></one-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

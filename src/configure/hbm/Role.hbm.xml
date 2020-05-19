@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="erp.model.Role" table="role" schema="erp_project">
+        <id name="roleId" column="role_id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="code" column="code"/>
+        <!--设置和菜单多对多的关系-->
+        <set name="menus" table="relation_role_menu" cascade="save-update">
+            <key column="role_id"></key>
+            <many-to-many class="erp.model.Menu" column="menu_id"></many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

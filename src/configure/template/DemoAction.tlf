@@ -1,0 +1,49 @@
+/**
+ * @ClassName DemoAction
+ * @Authror zhouzhiqiang
+ * @Date 2020/3/23 23:27
+ * @description
+ * @version 1.0
+ */
+package erp.controller;
+
+import com.opensymphony.xwork2.ActionContext;
+import erp.query.DemoQuery;
+import erp.service.DemoService;
+import erp.utils.Page;
+
+public class DemoAction extends BaseAction{
+    //demoService接口
+    private DemoService demoService;
+    public void setDemoService(DemoService demoService) {
+        this.demoService = demoService;
+    }
+
+    //定义接收查询对象
+    private DemoQuery query=new DemoQuery();
+
+    public DemoQuery getQuery() {
+        return query;
+    }
+
+    public void setQuery(DemoQuery query) {
+        this.query = query;
+    }
+
+    
+    public String demo_list() {
+        Integer pageNo = query.getPageNo();
+        if (pageNo==null) {
+            query.setPageNo(1);
+        }
+        Page page = demoService.queryObjByCondition(query, exclude);
+        //获取ContextMap
+        ActionContext context = ActionContext.getContext();
+        context.put("page",page);
+        return SUCCESS;
+    }
+  
+    public String demo_input() {
+        return SUCCESS;
+    }
+}

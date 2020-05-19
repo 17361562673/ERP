@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="erp.model.OrderDetail" table="order_detail" schema="erp_project">
+        <id name="orderDetailId" column="order_detail_id">
+            <generator class="native"/>
+        </id>
+        <property name="detailNum" column="detail_num"/>
+        <property name="detailPrice" column="detail_price"/>
+        <!--<property name="productId" column="product_id"/>-->
+        <property name="orderId" column="order_id"/>
+        <property name="surplus" column="surplus"/>
+        <many-to-one name="product" column="product_id"/>
+    </class>
+</hibernate-mapping>

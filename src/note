@@ -1,0 +1,39 @@
+前台的emp.username  emp.password传到后台后因为emp 有get 和set方法所以通过get取得值通过set进行赋值
+emp就被赋上值了
+
+
+  /*@Override
+    public void updateEmp(Emp emp) {
+             //通过get方法拿到的emp1本身是持久对象
+            Emp emp1 = empDao.get(emp.getEmpId());
+            //先把传过来的emp的password赋值然后再做更新，这样就不会出现password消失问题
+            emp.setPassword(emp1.getPassword());
+            //调用empdao把emp进行更新
+
+            //当update的时候emp 也就变成持久对象了 也就是 emp1和emp这两个不同的emp对象共用了主键就会报错
+            empDao.update(emp);
+
+            //以后一定注意这个问题
+    }*/
+
+
+
+
+    解决方法：//属性拷贝(把emp的所有属性拷贝到emp1)
+                         BeanUtils.copyProperties(emp1,emp);
+      @Override
+        public void updateEmp(Emp emp) {
+            Emp emp1 = empDao.get(emp.getEmpId());
+            //先把传过来的emp的password赋值然后再做更新，这样就不会出现password消失问题
+            emp.setPassword(emp1.getPassword());
+            try {
+                //属性拷贝(把emp的所有属性拷贝到emp1)
+                BeanUtils.copyProperties(emp1,emp);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            //调用empdao把emp进行更新
+            empDao.update(emp1);
+        }

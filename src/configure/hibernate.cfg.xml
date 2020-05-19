@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- SQL dialect -->
+    <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+    <!-- Enable Hibernate's automatic session context management -->
+    <!--<property name="current_session_context_class">thread</property>-->
+
+    <!-- Disable the second-level cache  -->
+    <!--开启二级缓存-->
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    <!--指定使用哪一个缓存框架(整合Ehtch)-->
+    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+    <!--开启查询缓存-->
+    <property name="hibernate.cache.use_query_cache">true</property>
+
+    <!-- Echo all executed SQL to stdout -->
+    <property name="show_sql">true</property>
+      <property name="connection.url">jdbc:mysql://localhost:3306/erp_project</property>
+      <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+      <mapping resource="hbm/Emp.hbm.xml"/>
+      <mapping resource="hbm/Dep.hbm.xml"/>
+      <mapping resource="hbm/Supplier.hbm.xml"/>
+      <mapping resource="hbm/ProductType.hbm.xml"/>
+      <mapping resource="hbm/Role.hbm.xml"/>
+      <mapping resource="hbm/Product.hbm.xml"/>
+      <mapping resource="hbm/OrderModel.hbm.xml"/>
+      <mapping resource="hbm/OrderDetail.hbm.xml"/>
+      <mapping resource="hbm/ConsoleLog.hbm.xml"/>
+      <mapping resource="hbm/Store.hbm.xml"/>
+      <mapping resource="hbm/StoreDetail.hbm.xml"/>
+      <mapping resource="hbm/Menu.hbm.xml"/>
+
+  </session-factory>
+</hibernate-configuration>

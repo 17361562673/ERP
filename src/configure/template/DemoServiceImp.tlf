@@ -1,0 +1,22 @@
+/**
+ * @ClassName DemoServiceImp
+ * @Authror zhouzhiqiang
+ * @Date 2020/3/20 16:49
+ * @description
+ * @version 1.0
+ */
+package erp.service.serviceImp;
+
+import erp.dao.DemoDao;
+import erp.model.Demo;
+import erp.query.DemoQuery;
+import erp.service.DemoService;
+
+public class DemoServiceImp extends BaseServiceImp<Demo, DemoQuery> implements DemoService {
+   private DemoDao demoDao;
+    public void setDemoDao(DemoDao demoDao) {
+        this.demoDao = demoDao;
+        //当我们使用公用的dao的时候必须要一个具体的dao赋值给baseDao
+        this.baseDao = demoDao;
+    }
+}

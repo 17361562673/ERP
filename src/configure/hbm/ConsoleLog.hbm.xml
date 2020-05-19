@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="erp.model.ConsoleLog" table="console_log" schema="erp_project">
+        <id name="logId" column="LOG_ID">
+            <generator class="native"/>
+        </id>
+        <property name="entityId" column="ENTITY_ID"/>
+        <property name="tableName" column="TABLE_NAME"/>
+        <property name="optType" column="OPT_TYPE"/>
+        <property name="optTime" column="OPT_TIME"/>
+        <!--<property name="empId" column="EMP_ID"/>-->
+        <property name="note" column="NOTE"/>
+        <many-to-one name="emp" column="emp_id"/>
+    </class>
+</hibernate-mapping>
